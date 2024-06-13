@@ -1,0 +1,221 @@
+/* 모바일버전 */
+
+.main-board {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 모바일헤더 */
+
+.logo {
+    width: 110px;
+    margin-left: 20px;
+}
+
+.navbar {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-menu {
+    display: none;
+    flex-direction: column;
+    margin: 30px 20px 30px 0;
+    align-items: flex-end;
+}
+
+.navbar-menu > li {
+    margin-top: 10px;
+}
+/* 네비게이션바 클릭 시 css 디자인 변화 */
+.navbar-menu > li > a:hover {
+    color: #8d5fee;
+    font-weight: bold;
+}
+.navbar-menu a {
+    margin: 25px 0px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.main-search {
+    width: 130px;
+    height: 30px;
+    background-color: #dac9ff;
+    border-radius: 5px;
+}
+
+.main-search-input {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 5px;
+    width: 75px;
+    height: 20px;
+    background-color: #dac9ff;
+    border: none;
+}
+
+.main-search-input::placeholder {
+    font-size: 16px;
+}
+
+.main-search-button {
+    margin-top: 5px;
+    width: 20px;
+    height: 15px;
+    background-color: #dac9ff;
+    border: none;
+}
+
+input.main-search-input:focus {
+    outline: none;
+}
+
+.fa-magnifying-glass {
+    font-size: 15px;
+    color: #fafafa;
+    width: 10px;
+    height: 10px;
+    background-color: #dac9ff;
+    border: none;
+}
+
+.fa-bars {
+    margin-top: 5px;
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+.navbar-menu.active {
+    display: flex;
+}
+
+#navBurger {
+    display: none;
+}
+
+.sidebar {
+    width: 180px;
+    height: 100%;
+    background-color: #f3f3f3;
+    position: fixed;
+    top: 112px;
+    right: -180px;
+    z-index: 1;
+    transition: all 0.35s;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 30px; */
+    margin-right: 20px;
+    align-items: flex-end;
+}
+
+.sidebar-menu > li {
+    margin-top: 10px;
+}
+
+.sidebar-menu a {
+    margin: 25px 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+label > input#navBurger:checked ~ .sidebar {
+    right: 0px;
+}
+
+/* PC버전 */
+@media screen and (min-width: 1200px) {
+    .main-board {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logo {
+        width: 110px;
+        /* margin-left: 20px; */
+    }
+
+    .navbar {
+        margin-top: 30px;
+        margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sidebar-sec {
+        display: none;
+    }
+
+    .navbar-menu {
+        margin-top: 0px;
+        margin-left: 20px;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .navbar-menu > li {
+        margin-top: 25px;
+    }
+
+    .navbar-menu a {
+        margin: 25px 0px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .main-search {
+        width: 150px;
+        height: 46px;
+        background-color: #dac9ff;
+        border-radius: 5px;
+    }
+
+    .main-search-input {
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: 10px;
+        margin-top: 3px;
+        width: 95px;
+        height: 40px;
+        background-color: #dac9ff;
+        border: none;
+    }
+
+    .main-search-input::placeholder {
+        font-size: 20px;
+    }
+
+    .main-search-button {
+        margin-top: 3px;
+        width: 40px;
+        height: 40px;
+        background-color: #dac9ff;
+        border: none;
+    }
+
+    input.main-search-input:focus {
+        outline: none;
+    }
+
+    .fa-magnifying-glass {
+        font-size: 20px;
+        color: #fafafa;
+        width: 21px;
+        height: 21px;
+        background-color: #dac9ff;
+        border: none;
+    }
+
+    #navBurger {
+        display: none;
+    }
+}

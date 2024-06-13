@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="icon" href="../img/파비콘.png" type="image/png" />
+        <title>검색</title>
+        <link rel="stylesheet" href="/css/reset.css" />
+        <link rel="stylesheet" href="/css/recentPage.css" />
+        <link rel="stylesheet" href="../css/main-page.css" />
+        <link rel="stylesheet" href="../css/footer.css" />
+    </head>
+    <body>
+        <div class="main-board">
+            <!-- 헤더 영역 -->
+            <%-include('header.ejs')%>
+
+            <div class="recent-album">
+                <div class="recent-title">검색 결과</div>
+                <div class="recent-album-detail">
+                    <ul class="recent-album-move"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer.ejs include -->
+        <%-include('footer.ejs')%>
+
+        <script>
+            const toggleBtn = document.querySelector('.navbar-toggleBtn');
+            const menu = document.querySelector('.navbar-menu');
+
+            toggleBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+                menu.classList.toggle('active');
+            });
+
+            (async function () {
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const searchKeyword = urlParams.get('searchKeyword');
+
+                const res = await axios({
+                    method: 'GET',
+                    url: `https://api.spotify.com/v1/search?q=${searchKeyword}&type=album,track,artist`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+
+                const ulElement = document.querySelector('.recent-album-move');
+
+                res.data.albums.items.forEach((item) => {
+                    const liElement = document.createElement('li');
+                    liElement.classList.add('recent-album-move-li');
+
+                    let albumImgUrl = '';
+                    if (item.images.length > 0) {
+                        albumImgUrl = item.images[0].url;
+                    }
+
+                    liElement.innerHTML = `
+                <div class="recent-album-img">
+                    <img src="${albumImgUrl}" alt="album-img" width="120px" height="120px" />
+                </div>
+                <span class="recent-album-title">${item.name}</span>
+                <span class="recent-album-releaseDate">${item.release_date}</span>
+                <div class="recent-album-artist">${item.artists[0].name}</div>
+            `;
+
+                    liElement.onclick = async function () {
+                        const trackInfo = await axios({
+                            method: 'GET',
+                            url: `${item.href}/tracks`,
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                            },
+                        });
+
+                        console.log('트랙 데이터: ', trackInfo.data);
+                        for (const track of trackInfo.data.items) {
+                            console.log('트랙 No.', track.track_number);
+                            console.log('트랙 이름:', track.name);
+                        }
+                    };
+
+                    ulElement.appendChild(liElement);
+                });
+            })();
+
+            async function searchAlbum() {
+                const searchKeyword = document.querySelector('.main-search-input').value;
+                window.location.href = `/search?searchKeyword=${encodeURIComponent(searchKeyword)}`;
+            }
+        </script>
+        <script src="https://kit.fontawesome.com/ff4f9619d6.js" crossorigin="anonymous"></script>
+    </body>
+</html>

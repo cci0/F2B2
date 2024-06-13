@@ -1,0 +1,44 @@
+<header>
+    <nav class="navbar">
+        <a href="/">
+            <img src="/img/logo.png" class="logo" />
+        </a>
+
+        <ul class="navbar-menu">
+            <li><a id="navSignupButton" href="/signup">회원가입</a></li>
+            <li><a id="navLoginButton" href="/login">로그인</a></li>
+
+            <li class="main-search">
+                <input class="main-search-input" type="text" placeholder="FloB 검색" />
+                <button class="main-search-button" type="button" onclick="searchAlbum()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </li>
+            <li><a href="/recentAlbum">최신앨범</a></li>
+            <li><a href="/flobChart">FloB 차트</a></li>
+            <li><a href="/music/detail/힙합">장르별음악</a></li>
+            <li><a id="navmyPageButton" href="/myPage">보관함</a></li>
+        </ul>
+        <!-- 모바일 헤더, 햄버거  -->
+        <label class="sidebar-sec">
+            <input type="checkbox" id="navBurger" />
+            <i class="fa-solid fa-bars"></i>
+            <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li><a id="sideSignupButton" href="/signup">회원가입</a></li>
+                    <li><a id="sideLoginButton" href="/login">로그인</a></li>
+                    <li class="main-search">
+                        <input class="main-search-input" type="text" placeholder="FloB 검색" />
+                        <button class="main-search-button" type="button" onclick="searchAlbum()">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </li>
+                    <li><a href="/recentAlbum">최신앨범</a></li>
+                    <li><a href="/flobChart">FloB 차트</a></li>
+                    <li><a href="/music/detail/힙합">장르별음악</a></li>
+                    <li><a id="sidemyPageButton" href="/myPage">보관함</a></li>
+                </ul>
+            </div>
+        </label>
+    </nav>
+</header>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>음악 플레이어 팝업</title>
+    </head>
+    <body>
+        <button id="openButton">팝업 열기</button>
+
+        <script>
+            const openButton = document.getElementById('openButton');
+
+            openButton.addEventListener('click', function () {
+                const popupWindow = window.open('', 'Music Player', 'width=400,height=300');
+                const audioTag = document.createElement('audio');
+                audioTag.src = 'your-audio-file.mp3'; // 음악 파일 경로
+                audioTag.controls = true;
+                popupWindow.document.body.appendChild(audioTag);
+            });
+        </script>
+    </body>
+</html>

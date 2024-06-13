@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="../img/파비콘.png" type="image/png" />
+        <link rel="stylesheet" href="../css/reset.css" />
+        <link rel="stylesheet" href="../css/signup.css" />
+        <link rel="stylesheet" href="../css/header.css" />
+        <link rel="stylesheet" href="../css/footer.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <title>FloB &gt; 회원가입</title>
+    </head>
+    <body>
+        <div class="main-board">
+            <!-- 헤더 영역 -->
+            <%-include('header.ejs')%>
+
+            <!-- 회원가입 기능 -->
+            <div class="signup-box">
+                <div class="signup">
+                    <div class="signup-title">회원가입</div>
+                    <form class="signup-form" name="signup-form">
+                        <table class="signup-table">
+                            <tr>
+                                <td class="user-id">아이디</td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        class="user-id-box"
+                                        id="user_id"
+                                        pattern="[A-Za-z0-9]+"
+                                        required
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-pw">비밀번호</td>
+                                <td>
+                                    <input
+                                        type="password"
+                                        class="user-pw-box"
+                                        id="user_pw"
+                                        pattern="^(?=.*[A-Z])(?=.*[a-z](?=.*\d).{8,}$)"
+                                        required
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-pw-confirm">비밀번호<br />확인</td>
+                                <td>
+                                    <input
+                                        type="password"
+                                        class="user-pw-confirm-box"
+                                        id="user_pw_confirm_box"
+                                        pattern="^(?=.*[A-Z])(?=.*[a-z](?=.*\d).{8,}$)"
+                                        required
+                                    />
+                                    <span id="pw_match_error" style="color: red; display: none"
+                                        >입력하신 비밀번호와 틀립니다.</span
+                                    >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="user-name">별명</td>
+                                <td><input type="text" class="user-name-box" id="user_name" required /></td>
+                            </tr>
+                            <tr>
+                                <td class="user-email">이메일</td>
+                                <td><input type="email" class="user-email-box" id="user_email" required /></td>
+                            </tr>
+                            <tr>
+                                <td class="user-gender">성별</td>
+                                <td style="display: flex">
+                                    <input type="radio" name="user_gender" value="남성" id="male" required />
+                                    <label for="male">남성</label>
+                                    <input type="radio" name="user_gender" value="여성" id="female" required />
+                                    <label for="female">여성</label>
+                                    <input type="radio" name="user_gender" value="기타" id="other" required />
+                                    <label for="other">기타</label>
+                                    <input type="radio" name="user_gender" value="비공개" id="private" required />
+                                    <label for="private">비공개</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+
+                <div class="checkbox">
+                    <div class="checkAll">
+                        <input type="checkbox" id="checkAll" />
+                        <label for="checkAll">아래 내용에 동의합니다&#46;</label>
+                    </div>
+
+                    <div class="checkboxs">
+                        <div class="checkbox1">
+                            <input type="checkbox" id="checkbox1" />
+                            <label for="checkbox1">&#40;필수&#41; 이용약관에 동의합니다&#46;</label>
+                        </div>
+
+                        <div class="checkbox2">
+                            <input type="checkbox" id="checkbox2" />
+                            <label for="checkbox2"
+                                >&#40;필수&#41; 개인정보 수집 및 이용에 대한 안내에 동의합니다&#46;</label
+                            >
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="signup-btn" onclick="signupFunc()">회원가입</button>
+            </div>
+        </div>
+
+        <!-- footer.ejs include -->
+        <%-include('footer.ejs')%>
+
+        <script>
+            async function signupFunc() {
+                const form = document.forms['signup-form'];
+
+                const data = {
+                    user_id: form.user_id.value,
+                    user_pw: form.user_pw.value,
+                    user_name: form.user_name.value,
+                    user_email: form.user_email.value,
+                    user_gender: form.user_gender.value,
+                };
+
+                const res = await axios({
+                    method: 'POST',
+                    url: '/api/user/signup',
+                    data,
+                });
+                console.log(res); // 백엔드에서 res.json({ success: true })로 보냄. 접근할 때는 res.data.success
+
+                if (res.data.success) {
+                    alert(res.data.message);
+                    document.location.href = '/login';
+                } else {
+                    alert(res.data.message);
+                }
+            }
+
+            // 비밀번호 한 번 더 확인하는 코드
+            const pwInput = document.getElementById('user_pw');
+            const pwConfirmInput = document.getElementById('user_pw_confirm_box');
+            const pwMatchError = document.getElementById('pw_match_error');
+
+            pwConfirmInput.addEventListener('input', () => {
+                if (pwInput.value !== pwConfirmInput.value) {
+                    pwMatchError.style.display = 'block';
+                } else {
+                    pwMatchError.style.display = 'none';
+                }
+            });
+
+            // checkbox 관련
+            const checkAllCheckbox = document.getElementById('checkAll');
+            const checkbox1 = document.getElementById('checkbox1');
+            const checkbox2 = document.getElementById('checkbox2');
+
+            // checkAll 체크박스를 클릭하면 checkbox1과 checkbox2의 상태를 동기화합니다.
+            checkAllCheckbox.addEventListener('click', function () {
+                checkbox1.checked = this.checked;
+                checkbox2.checked = this.checked;
+            });
+
+            // checkbox1 또는 checkbox2 중 하나라도 체크 해제되면 checkAll도 체크 해제합니다.
+            checkbox1.addEventListener('click', function () {
+                if (!this.checked) {
+                    checkAllCheckbox.checked = false;
+                } else {
+                    if (checkbox2.checked) {
+                        checkAllCheckbox.checked = true;
+                    }
+                }
+            });
+
+            checkbox2.addEventListener('click', function () {
+                if (!this.checked) {
+                    checkAllCheckbox.checked = false;
+                } else {
+                    if (checkbox1.checked) {
+                        checkAllCheckbox.checked = true;
+                    }
+                }
+            });
+        </script>
+
+        <script src="https://kit.fontawesome.com/ff4f9619d6.js" crossorigin="anonymous"></script>
+    </body>
+</html>

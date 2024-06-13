@@ -1,0 +1,19 @@
+#audiobar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background: #fafafa;
+    box-shadow: 0px 0px 10px #dac9ff;
+}
+
+audio {
+    width: 100%;
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: #fafafa;
+    color: #8d5fee;
+}

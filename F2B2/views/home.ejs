@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- Plyr 라이브러리 CSS -->
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+
+        <!-- Plyr 라이브러리 JS -->
+        <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+        <title>FloB</title>
+        <link rel="stylesheet" href="/css/reset.css" />
+        <link rel="stylesheet" href="/css/home.css" />
+        <!-- <link rel="stylesheet" href="../css/recentAlbum.css" /> -->
+        <link rel="stylesheet" href="../css/musicbar.css" />
+        <link rel="stylesheet" href="../css/footer.css" />
+        <link rel="icon" href="../img/파비콘.png" type="image/png" />
+    </head>
+
+    <body>
+        <div class="main-board">
+            <!-- 헤더 영역 -->
+            <%-include('header.ejs')%>
+
+            <!-- 메인기능 -->
+            <div class="music-board">
+                <!-- 메인기능 1 : 최신앨범 -->
+                <div class="recent-album">
+                    <div class="recent-title">최신 앨범</div>
+                    <div class="recent-album-detail">
+                        <ul class="recent-album-move"></ul>
+                    </div>
+                </div>
+
+                <!-- 메인기능 2 : FloB차트 -->
+                <div class="music-board-chart">
+                    <div class="music-board-chart-title">
+                        FloB TOP 10
+                        <button type="button" class="chart-plus">+ 더보기</button>
+                    </div>
+
+                    <hr class="music-chart-hr" />
+                    <table border="1px" class="flobchart">
+                        <tr id="img_tr1">
+                            <td>1</td>
+                            <td><img src="../album_img/all/Perfect Night.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title0">노래제목</td>
+                            <td id="artist0">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart1()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList1()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList1()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr2">
+                            <td>2</td>
+                            <td>
+                                <img
+                                    src="../album_img/all/YOUNHA 6th Album Repackage 'END THEORY - Final Editon'.jpg"
+                                    style="width: 50px; height: 50px"
+                                />
+                            </td>
+                            <td id="title1">노래제목</td>
+                            <td id="artist1">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart2()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList2()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList2()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr3">
+                            <td>3</td>
+                            <td><img src="../album_img/all/I've IVE.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title2">노래제목</td>
+                            <td id="artist2">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart3()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList3()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList3()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr4">
+                            <td>4</td>
+                            <td><img src="../album_img/all/전설.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title3">노래제목</td>
+                            <td id="artist3">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart4()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList4()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList4()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr5">
+                            <td>5</td>
+                            <td><img src="../album_img/all/Love 119.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title4">노래제목</td>
+                            <td id="artist4">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart5()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList5()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList5()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr6">
+                            <td>6</td>
+                            <td><img src="../album_img/all/The Winning.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title5">노래제목</td>
+                            <td id="artist5">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart6()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList6()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList6()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr7">
+                            <td>7</td>
+                            <td>
+                                <img
+                                    src="../album_img/all/TWS 1st Mini Album 'Sparkling Blue'.jpg"
+                                    style="width: 50px; height: 50px"
+                                />
+                            </td>
+                            <td id="title6">노래제목</td>
+                            <td id="artist6">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart7()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList7()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList7()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr8">
+                            <td>8</td>
+                            <td><img src="../album_img/all/Boyhood.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title7">노래제목</td>
+                            <td id="artist7">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart8()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList8()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList8()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr9">
+                            <td>9</td>
+                            <td><img src="../album_img/all/2.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title8">노래제목</td>
+                            <td id="artist8">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart9()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList9()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList9()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="img_tr10">
+                            <td>10</td>
+                            <td><img src="../album_img/all/돈 벌 시간 2.jpg" style="width: 50px; height: 50px" /></td>
+                            <td id="title9">노래제목</td>
+                            <td id="artist9">아티스트</td>
+                            <td>
+                                <div class="chart-etc">
+                                    <button type="button" class="button-etc etc1" onclick="musicStart10()">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc2" onclick="playList10()">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button type="button" class="button-etc etc3" onclick="likeList10()">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!-- 메인기능 2 : FloB차트_모바일 -->
+                    <div class="mobile-flobchart-all">
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img0" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">1</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title0" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist0" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart1()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img1" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">2</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title1" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist1" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart2()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img2" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">3</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title2" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist2" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart3()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img3" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">4</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title3" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist3" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart4()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img4" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">5</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title4" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist4" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart5()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img5" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">6</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title5" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist5" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart6()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img6" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">7</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title6" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist6" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart7()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img7" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">8</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title7" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist7" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart8()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img8" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">9</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title8" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist8" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart9()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-flobchart">
+                            <div id="mobile-img9" class="mobilechart-img"></div>
+
+                            <div class="mobilechart-rank">
+                                <div class="mobilechart-rank-rankpoint">10</div>
+                                <div class="mobilechart-rankchange">
+                                    <i class="fa-solid fa-caret-up"> 1</i>
+                                </div>
+                            </div>
+                            <div class="mobilechart-music">
+                                <div class="mobilechart-info">
+                                    <div id="mobile-title9" class="mobilechart-info-title">노래제목</div>
+                                    <div id="mobile-artist9" class="mobilechart-info-artist">아티스트</div>
+                                </div>
+                                <button type="button" class="mobile-play" onclick="musicStart10()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 메인기능 3 : 장르별음악 -->
+                <div class="genre-board">
+                    <div class="genre-title">장르별 음악</div>
+                    <div class="genre-button-all">
+                        <a href="/music/detail/힙합"><button type="button" class="genre-button">힙합</button></a>
+                        <a href="/music/detail/발라드"><button type="button" class="genre-button">발라드</button></a>
+                        <a href="/music/detail/메탈"><button type="button" class="genre-button">메탈</button></a>
+                        <a href="/music/detail/댄스"><button type="button" class="genre-button">댄스</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 기능 완성되면 hidden으로 감출 예정 -->
+        <div id="audiobar" hidden>
+            <audio id="audio_bar" src="" controls preload="none"></audio>
+        </div>
+
+        <!-- footer.ejs include -->
+        <%-include('footer.ejs')%>
+
+        <script>
+            // ===================== spotify api 토큰 자동 갱신
+            console.log('spotify api 토큰 자동 갱신');
+            (async function () {
+                const form = document.forms['music-form'];
+
+                const res = await axios({
+                    method: 'POST',
+                    url: 'https://accounts.spotify.com/api/token',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    data: {
+                        grant_type: 'client_credentials',
+                        client_id: 'e3771485c4fa4aafac1a4c71520907cf', // ! Spotify 가입 후 받은 개인 id 할당해야함 (어쩌면 이대로 될 수도?)
+                        client_secret: '94943914022246c185a4458080ede5ee', //! Spotify 가입 후 받은 개인 secret 할당해야함
+                    },
+                });
+                localStorage.setItem('access_token', res.data.access_token);
+            })();
+
+            // =============================== 검색 기능
+            async function searchAlbum() {
+                var searchKeyword = document.querySelector('.main-search-input').value;
+                window.location.href = `/search?searchKeyword=${encodeURIComponent(searchKeyword)}`;
+            }
+
+            // ==================== 최근 앨범 리스트
+
+            (async function () {
+                const res = await axios({
+                    method: 'GET',
+                    url: 'https://api.spotify.com/v1/browse/new-releases',
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+
+                // console.log("res.data.albums:", res.data.albums);
+
+                const ulElement = document.querySelector('.recent-album-move');
+
+                res.data.albums.items.forEach((item) => {
+                    // li 요소 생성
+                    const liElement = document.createElement('li');
+                    liElement.classList.add('recent-album-move-li');
+
+                    // 내부 HTML 구성
+                    let albumUrl = item.href;
+                    let albumImgUrl = item.images[0].url; //앨범 이미지 url
+                    let albumName = item.name; //앨범 이름
+                    let albumArtist = item.artists[0].name; // 아티스트 이름
+                    let albumTrackNum = item.total_tracks; // 전체 트랙 수
+                    let albumReleaseDate = item.release_date; // 발매일
+
+                    const maxLength = 24;
+
+                    const summaryAlbumName =
+                        albumName.length > maxLength ? albumName.substring(0, maxLength - 3) + '...' : albumName;
+                    //<img src="${albumImgUrl}" alt="albun-img" width="120px" height="120px" />
+
+                    liElement.innerHTML = `
+                            <div class="recent-album-img">
+                                <img src="${albumImgUrl}" alt="albun-img" height="160px" />
+                            </div>
+                            <span class="recent-album-title" style="font-weight: bold;">${summaryAlbumName}</span>
+                            <div class="recent-album-artist">${albumArtist}</div>
+                            <div class="recent-album-releaseDate" style = "color: #9D9D9D;">${albumReleaseDate}</div>
+
+                        `;
+                    // 데이터 속성 추가
+                    liElement.dataset.albumUrl = albumUrl;
+
+                    liElement.onclick = async function () {
+                        //각 앨범 클릭 했을 시 트랙들에 대한 정보 출력
+
+                        const trackInfo = await axios({
+                            method: 'GET',
+                            url: `${this.dataset.albumUrl}/tracks`,
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                            },
+                        });
+
+                        console.log('트랙 데이터: ', trackInfo.data);
+                        for (var item of trackInfo.data.items) {
+                            console.log('트랙 No.', item.track_number);
+                            console.log('트랙 이름:', item.name);
+                        }
+                    };
+
+                    // ul 요소에 li 요소를 추가
+                    ulElement.appendChild(liElement);
+                });
+            })();
+
+            const chartPlus = document.querySelector('.chart-plus');
+            const musicChart = document.querySelector('.music-board-chart');
+            let clickNum = false;
+            const chartTr = document.querySelectorAll('.flobchart tr');
+
+            chartPlus.addEventListener('click', () => {
+                clickNum = !clickNum;
+                if (clickNum) {
+                    musicChart.style.height = '45%';
+                    chartPlus.textContent = '- 접기';
+
+                    chartTr.forEach((tr) => {
+                        tr.style.display = 'table-row';
+                    });
+                } else {
+                    musicChart.style.height = '290px';
+                    chartPlus.textContent = '+ 더보기';
+                }
+            });
+        </script>
+
+        <script src="https://kit.fontawesome.com/ff4f9619d6.js" crossorigin="anonymous"></script>
+    </body>
+    <script src="/js/home/chart-home.js"></script>
+    <script src="/js/home/listLike-home.js"></script>
+    <script src="/js/home/login-home.js"></script>
+    <script src="/js/home/musicStart-home.js"></script>
+    <script src="/js/home/playList-home.js"></script>
+</html>

@@ -1,0 +1,136 @@
+/* 모바일 버전 */
+
+/* 회원가입 박스 */
+.signup-box {
+    margin: 25px 20px 150px 20px;
+}
+
+/* 회원가입 제목 */
+.signup-title {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 35px;
+    color: #8d5fee;
+}
+
+/* 회원가입 테이블 */
+table {
+    width: 100%;
+    border: 0 none;
+    border-spacing: 0;
+}
+
+td {
+    padding: 10px 0px;
+    text-align: left;
+}
+
+/* 회원가입 항목 */
+.user-id,
+.user-pw,
+.user-pw-confirm,
+.user-name,
+.user-email,
+.user-gender {
+    width: 80px;
+    font-weight: bold;
+}
+
+/* 회원가입 기입 박스 */
+.signup-table input[type='text'],
+.signup-table input[type='password'],
+.signup-table input[type='email'] {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    border: 1px solid transparent;
+}
+
+/* 성별 항목 */
+td > label {
+    margin: 0px auto 0 10px;
+    font-size: 12px;
+}
+
+/* 체크(동의) 항목 */
+.checkbox {
+    margin: 30px 0 0 0;
+}
+
+.checkAll {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid #a1a1a1;
+    border-bottom: 1px solid #a1a1a1;
+}
+
+#checkAll {
+    margin: 0 15px 0 0;
+}
+
+.checkbox1,
+.checkbox2 {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+#checkbox1,
+#checkbox2 {
+    margin: 0 15px 0 0;
+}
+
+/* 회원가입 버튼 */
+
+.signup-btn {
+    text-align: center;
+    margin: 30px 0 0 0;
+    width: 100%;
+    padding: 5px;
+    color: #8d5fee;
+    background-color: #fafafa;
+    border-radius: 5px;
+    border: 1px solid #8d5fee;
+}
+
+.signup-btn:hover {
+    color: #fafafa;
+    background-color: #8d5fee;
+}
+
+.signup-btn:active {
+    color: #fafafa;
+    background-color: #8d5fee;
+}
+
+/* PC버전 */
+
+@media screen and (min-width: 1200px) {
+    .signup-box {
+        margin: 100px auto 195px auto;
+        width: 50%;
+    }
+
+    .signup-title {
+        display: none;
+    }
+
+    .user-id,
+    .user-pw,
+    .user-pw-confirm,
+    .user-name,
+    .user-email,
+    .user-gender {
+        width: 180px;
+        font-weight: bold;
+    }
+
+    /* 체크(동의) 항목 */
+    .checkbox {
+        margin: 30px 0 0 0;
+    }
+}

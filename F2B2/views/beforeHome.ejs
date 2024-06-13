@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <title>Spotify Music List</title>
+    </head>
+    <body>
+        <h1>Spotify Music List</h1>
+        <a href="/signup">회원가입</a>
+        <a href="/login">로그인</a> <br />
+        <a href="/myPage">마이 페이지</a> <br />
+        <a href="/music">음악 페이지</a>
+        <form name="music-form">
+            <button type="button" onclick="tokenRenew()">토큰 갱신</button><br />
+            <input type="text" id="searchKeyword" />
+            <button type="button" onclick="searchItem()">검색</button><br />
+
+            <button type="button" onclick="artistAlbums()">특정 아티스트 앨범들</button><br />
+
+            <button type="button" onclick="artistTopTracks()">특정 아티스트 TOP 트랙</button><br />
+
+            <button type="button" onclick="newRelease()">최근 발매 앨범</button><br />
+
+            <button type="button" onclick="getAllGenres()">Spotify 전체장르 종류 (하지만 무쓸모..?)</button>
+        </form>
+
+        <ul></ul>
+
+        <script>
+            //[기능] 토큰 갱신
+            //! 1시간 마다 버튼 눌러야 함. 안그러면 모든 기능 에러
+            async function tokenRenew() {
+                const form = document.forms['music-form'];
+
+                const res = await axios({
+                    method: 'POST',
+                    url: 'https://accounts.spotify.com/api/token',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    data: {
+                        grant_type: 'client_credentials',
+                        client_id: 'e3771485c4fa4aafac1a4c71520907cf', // ! Spotify 가입 후 받은 개인 id 할당해야함 (어쩌면 이대로 될 수도?)
+                        client_secret: '94943914022246c185a4458080ede5ee', //! Spotify 가입 후 받은 개인 secret 할당해야함
+                    },
+                });
+                localStorage.setItem('access_token', res.data.access_token);
+            }
+
+            //[기능] 앨범명 or 트랙명 or 아티스트명으로 검색    input: keyword -> ouput: album, track, artist
+            async function searchItem() {
+                var searchKeyword = document.querySelector('#searchKeyword').value;
+                const res = await axios({
+                    method: 'GET',
+                    url: `https://api.spotify.com/v1/search?q=${searchKeyword}&type=album,track,artist`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+                // console.log(res.data);
+
+                var { albums: returnAlbum, tracks: returnTrack, artists: returnArtist } = res.data;
+
+                console.log('관련 앨범: ', returnAlbum.items);
+                console.log('관련 트랙: ', returnTrack.items);
+                console.log('관련 아티스트: ', returnArtist.items);
+                console.log('관련 아티스트 Seed: ', returnArtist.items[0].id);
+            }
+
+            //[기능] 특정 아티스트의 앨범 정보 가져오기 (현재는 박효신으로 예시)
+            async function artistAlbums() {
+                var artistSeed = '57htMBtzpppc1yoXgjbslj'; //아티스트의 시드 (박효신)
+
+                const res = await axios({
+                    method: 'GET',
+                    url: `https://api.spotify.com/v1/artists/${artistSeed}/albums`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+
+                const li = document.createElement('li');
+                const img = document.createElement('img');
+                const { items } = res.data;
+                console.log('앨범들 정보:', items);
+
+                img.setAttribute('src', `${items[1].images[1].url}`);
+                li.appendChild(img);
+                document.querySelector('ul').appendChild(li);
+            }
+
+            //[기능] 특정 아티스트의 인기 트랙들 보이기 (현재는 박효신으로 예시)
+            async function artistTopTracks() {
+                var artistSeed = '57htMBtzpppc1yoXgjbslj'; //아티스트의 시드 (박효신)
+
+                const res = await axios({
+                    method: 'GET',
+                    url: `https://api.spotify.com/v1/artists/${artistSeed}/top-tracks?market=KR`,
+
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+
+                console.log(res.data);
+            }
+
+            //[기능] 최근 발매 앨범들 가져오기
+            async function newRelease() {
+                const res = await axios({
+                    method: 'GET',
+                    url: 'https://api.spotify.com/v1/browse/new-releases',
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+
+                // console.log("res.data.albums:", res.data.albums);
+
+                const ul = document.querySelector('ul');
+
+                //최근 발매 앨범 리스트
+                for (var item of res.data.albums.items) {
+                    const li = document.createElement('li');
+                    const albumImgUrlElm = document.createElement('img');
+                    const albumNameElm = document.createElement('span');
+                    const albumArtistElm = document.createElement('span');
+                    const albumTrackNumElm = document.createElement('span');
+                    const albumReleaseDateElm = document.createElement('span');
+
+                    let albumUrl = item.href;
+                    let albumImgUrl = item.images[1].url; //앨범 이미지 url
+                    let albumName = item.name; //앨범 이름
+                    let albumArtist = item.artists[0].name; // 아티스트 이름
+                    let albumTrackNum = item.total_tracks; // 전체 트랙 수
+                    let albumReleaseDate = item.release_date; // 발매일
+
+                    albumImgUrlElm.setAttribute('src', albumImgUrl);
+                    albumNameElm.textContent = '앨범 이름: ' + albumName + '  ||||| ';
+                    albumArtistElm.textContent = '아티스트: ' + albumArtist + '  |||||  ';
+                    albumTrackNumElm.textContent = '곡 수: ' + albumTrackNum + ' ||||| ';
+                    albumReleaseDateElm.textContent = '발매일: ' + albumReleaseDate;
+
+                    li.dataset.albumUrl = albumUrl;
+                    li.appendChild(albumImgUrlElm);
+                    li.appendChild(albumNameElm);
+                    li.appendChild(albumArtistElm);
+                    li.appendChild(albumTrackNumElm);
+                    li.appendChild(albumReleaseDateElm);
+
+                    //각 앨범 클릭 했을 시 트랙들에 대한 정보 출력
+                    li.onclick = async function () {
+                        const trackInfo = await axios({
+                            method: 'GET',
+                            url: `${this.dataset.albumUrl}/tracks`,
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                            },
+                        });
+
+                        console.log('트랙 데이터: ', trackInfo.data);
+                        for (var item of trackInfo.data.items) {
+                            console.log('트랙 No.', item.track_number);
+                            console.log('트랙 이름:', item.name);
+                        }
+                    };
+
+                    ul.appendChild(li);
+                }
+            }
+
+            //[기능] Spotify 전체 장르종류 보이기
+            //근데 이 장르들을 이용하여 뭔가를 제공받을 수 있는 지가 안보임
+            async function getAllGenres() {
+                const res = await axios({
+                    method: 'GET',
+                    url: `https://api.spotify.com/v1/recommendations/available-genre-seeds`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+                console.log(res.data.genres);
+            }
+        </script>
+    </body>
+</html>

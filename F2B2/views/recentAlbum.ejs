@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- Plyr 라이브러리 CSS -->
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+
+        <!-- Plyr 라이브러리 JS -->
+        <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+        <title>FloB</title>
+        <link rel="stylesheet" href="/css/reset.css" />
+        <link rel="stylesheet" href="/css/recentPage.css" />
+        <link rel="stylesheet" href="/css/header.css" />
+        <link rel="stylesheet" href="../css/musicbar.css" />
+        <link rel="stylesheet" href="../css/footer.css" />
+        <link rel="icon" href="../img/파비콘.png" type="image/png" />
+    </head>
+
+    <body>
+        <div class="main-board">
+            <!-- 헤더 영역 -->
+            <%-include('header.ejs')%>
+
+            <!-- 메인기능 -->
+            <div class="music-board">
+                <!-- 메인기능 1 : 최신앨범 -->
+                <div class="recent-album">
+                    <div class="recent-title">최신 앨범</div>
+                    <div class="recent-album-detail">
+                        <ul class="recent-album-move"></ul>
+                    </div>
+                </div>
+                <!-- 메인기능 2 : FloB차트 -->
+            </div>
+        </div>
+
+        <!-- footer.ejs include -->
+        <%-include('footer.ejs')%>
+
+        <script>
+            // ===================== spotify api 토큰 자동 갱신
+            console.log('spotify api 토큰 자동 갱신');
+            (async function () {
+                const form = document.forms['music-form'];
+
+                const res = await axios({
+                    method: 'POST',
+                    url: 'https://accounts.spotify.com/api/token',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    data: {
+                        grant_type: 'client_credentials',
+                        client_id: 'e3771485c4fa4aafac1a4c71520907cf', // ! Spotify 가입 후 받은 개인 id 할당해야함 (어쩌면 이대로 될 수도?)
+                        client_secret: '94943914022246c185a4458080ede5ee', //! Spotify 가입 후 받은 개인 secret 할당해야함
+                    },
+                });
+                localStorage.setItem('access_token', res.data.access_token);
+            })();
+
+            // =============================== 검색 기능
+            async function searchAlbum() {
+                var searchKeyword = document.querySelector('.main-search-input').value;
+                window.location.href = `/search?searchKeyword=${encodeURIComponent(searchKeyword)}`;
+            }
+
+            // ==================== 최근 앨범 리스트
+
+            (async function () {
+                const res = await axios({
+                    method: 'GET',
+                    url: 'https://api.spotify.com/v1/browse/new-releases',
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                });
+
+                // console.log("res.data.albums:", res.data.albums);
+
+                const ulElement = document.querySelector('.recent-album-move');
+
+                res.data.albums.items.forEach((item) => {
+                    // li 요소 생성
+                    const liElement = document.createElement('li');
+                    liElement.classList.add('recent-album-move-li');
+
+                    // 내부 HTML 구성
+                    let albumUrl = item.href;
+                    let albumImgUrl = item.images[0].url; //앨범 이미지 url
+                    let albumName = item.name; //앨범 이름
+                    let albumArtist = item.artists[0].name; // 아티스트 이름
+                    let albumTrackNum = item.total_tracks; // 전체 트랙 수
+                    let albumReleaseDate = item.release_date; // 발매일
+
+                    const maxLength = 24;
+
+                    const summaryAlbumName =
+                        albumName.length > maxLength ? albumName.substring(0, maxLength - 3) + '...' : albumName;
+                    //<img src="${albumImgUrl}" alt="albun-img" width="120px" height="120px" />
+
+                    liElement.innerHTML = `
+                            <div class="recent-album-img">
+                                <img src="${albumImgUrl}" alt="albun-img" height="160px" />
+                            </div>
+                            <span class="recent-album-title" style="font-weight: bold;">${summaryAlbumName}</span>
+                            <div class="recent-album-artist">${albumArtist}</div>
+                            <div class="recent-album-releaseDate" style = "color: #9D9D9D;">${albumReleaseDate}</div>
+
+                        `;
+                    // 데이터 속성 추가
+                    liElement.dataset.albumUrl = albumUrl;
+
+                    liElement.onclick = async function () {
+                        //각 앨범 클릭 했을 시 트랙들에 대한 정보 출력
+
+                        const trackInfo = await axios({
+                            method: 'GET',
+                            url: `${this.dataset.albumUrl}/tracks`,
+                            headers: {
+                                Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                            },
+                        });
+
+                        console.log('트랙 데이터: ', trackInfo.data);
+                        for (var item of trackInfo.data.items) {
+                            console.log('트랙 No.', item.track_number);
+                            console.log('트랙 이름:', item.name);
+                        }
+                    };
+
+                    // ul 요소에 li 요소를 추가
+                    ulElement.appendChild(liElement);
+                });
+            })();
+        </script>
+        <script src="https://kit.fontawesome.com/ff4f9619d6.js" crossorigin="anonymous"></script>
+    </body>
+    <script src="/js/recentAlbum/login-recentAlbum.js"></script>
+</html>

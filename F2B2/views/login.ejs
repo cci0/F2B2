@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/reset.css" />
+        <link rel="stylesheet" href="../css/login.css" />
+        <link rel="stylesheet" href="../css/footer.css" />
+        <link rel="stylesheet" href="../css/header.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="icon" href="../img/파비콘.png" type="image/png" />
+
+        <title>FloB</title>
+    </head>
+    <body>
+        <div class="main-board">
+            <!-- 헤더 영역 -->
+            <%-include('header.ejs')%>
+
+            <!-- 로그인 영역 -->
+            <div class="login-sec">
+                <div class="user-box">
+                    <div class="login">
+                        <div class="login-title">로그인</div>
+                        <form name="form-login">
+                            <div class="user-id">
+                                <!-- 아이디 -->
+                                <i class="fa-solid fa-user-large"></i>
+                                <input
+                                    type="text"
+                                    class="user-id-box"
+                                    id="user_id"
+                                    pattern="[A-Za-z0-9]+"
+                                    placeholder="아이디"
+                                    required
+                                />
+                                <!-- 영어 대소문자와 숫자로만 구성된 문자열을 사용 -->
+                            </div>
+                            <div class="user-pw">
+                                <!-- 비밀번호 -->
+                                <i class="fa-solid fa-passport"></i>
+                                <input
+                                    type="password"
+                                    class="user-pw-box"
+                                    id="user_pw"
+                                    pattern="^(?=.*[A-Z])(?=.*[a-z](?=.*\d).{8,}$)"
+                                    placeholder="비밀번호"
+                                    required
+                                />
+                                <!-- 적어도 하나의 대문자, 소문자, 숫자가 포함된 최소 8자 이상 -->
+                            </div>
+                        </form>
+                        <!-- 아이디 자동 저장 -->
+                        <div class="id-save">
+                            <input type="checkbox" class="id-autoSave" id="idAutoSave" />
+                            <label for="idAutoSave">아이디 저장</label>
+                        </div>
+                        <!-- 로그인 버튼 -->
+                        <div>
+                            <button type="button" class="login-btn" id="loginBtn" onclick="loginFunc()">로그인</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 아이디 찾기 및 비밀번호 찾기 -->
+                <div class="not-user">
+                    <div class="find-user">
+                        <div class="find-id">
+                            <a href=""><span class="find-id-click">아이디 찾기</span></a>
+                        </div>
+                        <div class="find-pw">
+                            <a href=""><span class="find-pw-click">비밀번호 찾기</span></a>
+                        </div>
+                    </div>
+
+                    <!-- 회원가입 -->
+                    <div class="signup-box">
+                        <a href="/signup"><span class="signup">회원가입</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer.ejs include -->
+        <%-include('footer.ejs')%>
+
+        <script>
+            async function loginFunc() {
+                const res = await axios({
+                    method: 'POST',
+                    url: '/api/user/login',
+                    data: {
+                        user_id: document.querySelector('#user_id').value,
+                        user_pw: document.querySelector('#user_pw').value,
+                    },
+                });
+                console.log(res);
+                if (res.data.success) {
+                    alert('환영합니다');
+                    //localStorage: 브라우저에 정보를 저장, 브라우저닫혀도 계속유지
+                    //sessionStroage: 브라우저 정보를 저장. 단, 브라우저가 닫히면 정보삭제
+                    localStorage.setItem('token', res.data.token);
+                    document.location.href = '/';
+                } else {
+                    // alert('아이디와 비밀번호가 일치하지 않습니다');
+                    alert(res.data.message);
+                }
+            }
+        </script>
+
+        <script src="https://kit.fontawesome.com/ff4f9619d6.js" crossorigin="anonymous"></script>
+    </body>
+</html>

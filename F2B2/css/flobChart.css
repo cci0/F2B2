@@ -1,0 +1,597 @@
+/* 모바일버전 */
+
+.main-board {
+    /* width: 100%; */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 모바일헤더 */
+
+.logo {
+    width: 110px;
+    margin-left: 20px;
+}
+
+.navbar {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-menu {
+    display: none;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-left: 20px;
+    align-items: flex-end;
+}
+
+.navbar-menu > li {
+    margin-top: 10px;
+}
+/* 네비게이션바 클릭 시 css 디자인 변화 */
+.navbar-menu > li > a:hover {
+    /* background-color: purple; */
+    color: #8d5fee;
+    font-weight: bold;
+    /* text-shadow: 1px 1px 4px #8d5fee; */
+}
+.navbar-menu a {
+    margin: 25px 0px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.main-search {
+    width: 130px;
+    height: 30px;
+    background-color: #dac9ff;
+    border-radius: 5px;
+}
+
+.main-search-input {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 5px;
+    width: 75px;
+    height: 20px;
+    background-color: #dac9ff;
+    border: none;
+}
+
+.main-search-input::placeholder {
+    font-size: 16px;
+}
+
+.main-search-button {
+    margin-top: 5px;
+    width: 20px;
+    height: 15px;
+    background-color: #dac9ff;
+    border: none;
+}
+
+input.main-search-input:focus {
+    outline: none;
+}
+
+.fa-magnifying-glass {
+    font-size: 15px;
+    color: #fafafa;
+    width: 10px;
+    height: 10px;
+    background-color: #dac9ff;
+    border: none;
+}
+
+.fa-bars {
+    margin-top: 5px;
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+.navbar-menu.active {
+    display: flex;
+}
+
+#navBurger {
+    display: none;
+}
+
+.sidebar {
+    width: 180px;
+    height: 100%;
+    background-color: #f3f3f3;
+    position: fixed;
+    top: 102px;
+    right: -180px;
+    z-index: 1;
+    transition: all 0.35s;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 30px; */
+    margin-right: 10px;
+    align-items: flex-end;
+}
+
+.sidebar-menu > li {
+    margin-top: 10px;
+}
+
+.sidebar-menu a {
+    margin: 25px 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+label > input#navBurger:checked ~ .sidebar {
+    right: 0px;
+}
+
+/* 뮤직차트 */
+
+.music-board-chart {
+    height: 34%;
+    margin: 30px 20px 150px 20px;
+}
+
+.music-board-chart-title {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.chart-plus {
+    font-size: 14px;
+    border: none;
+    background-color: #ffffff;
+}
+
+.music-chart-hr {
+    color: #000000;
+}
+
+/* flob차트 */
+
+.flobchart {
+    display: none;
+    width: 100%;
+    height: 250px;
+    border: #ffffff;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.flobchart td:first-child {
+    width: 50px;
+}
+
+.flobchart td:nth-child(4) {
+    width: 180px;
+    color: #a1a1a1;
+}
+
+.flobchart td:last-child {
+    width: 180px;
+}
+
+.chart-etc {
+    display: flex;
+    justify-content: center;
+}
+
+.fa-caret-up {
+    color: #f81808;
+    font-size: 8px;
+}
+
+.fa-play {
+    color: #8d5fee;
+}
+
+.fa-plus {
+    color: #8d5fee;
+}
+
+.fa-heart {
+    color: #8d5fee;
+}
+
+.button-etc {
+    background-color: #ffffff;
+    margin: 0px 5px;
+    border: #a1a1a1;
+    border-style: solid;
+    border-width: 0.5px;
+    width: 23px;
+    border-radius: 50%;
+}
+
+/* 모바일 flobchart */
+
+.mobile-flobchart-all {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 550px;
+    /* overflow-x: scroll; */
+    margin-left: 3px;
+}
+
+.mobile-flobchart {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-width: 274px;
+    /* width: 50%; */
+    height: 50px;
+    margin-top: 5px;
+    margin-right: 3px;
+    border: 1px solid #dac9ff;
+    border-radius: 5px;
+}
+
+.mobilechart-img {
+    width: 35px;
+    height: 35px;
+    background-color: #a1a1a1;
+    margin: 5px;
+}
+
+.mobilechart-rank {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 3px;
+}
+
+.mobilechart-rank-rankpoint {
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.mobilechart-music {
+    display: flex;
+    flex-direction: row;
+}
+
+.mobilechart-info {
+    /* width: 50%; */
+    display: flex;
+    flex-direction: column;
+    margin: 0px 5px;
+}
+
+.mobilechart-info-title {
+    font-weight: bold;
+    font-size: 14px;
+    margin: 2px 0px;
+}
+
+.mobilechart-info-artist {
+    font-size: 10px;
+    color: #a1a1a1;
+}
+
+.mobile-play {
+    position: absolute;
+    border: none;
+    background-color: #ffffff;
+    top: 10px;
+    right: 10px;
+}
+
+/* 장르버튼 */
+.genre-board {
+    height: 200px;
+    font-weight: bold;
+    margin: 0px 20px;
+}
+
+.genre-title {
+    font-size: 20px;
+}
+.genre-button-all {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.genre-button {
+    margin: 20px 20px 0px 20px;
+    width: 100px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8d5fee;
+    font-size: 16px;
+    color: #fafafa;
+}
+
+.genre-button:hover {
+    background-color: #fafafa;
+    color: #8d5fee;
+}
+
+.music-board {
+    width: 100%;
+    /* background-color: #f3f3f3; */
+    /* margin-top: 100px; */
+    overflow-x: hidden;
+}
+
+.recent-album {
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+.recent-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 30px 20px;
+    /* padding-top: 20px; */
+}
+
+.recent-album-detail {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-right: 30px;
+}
+
+.recent-album-detail::-webkit-scrollbar {
+    display: none;
+}
+
+.recent-album-move {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 10px;
+}
+
+.recent-album-move-li {
+    flex: 0 0 auto;
+    margin-left: 20px;
+}
+
+.recent-album-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* PC버전 */
+@media screen and (min-width: 1200px) {
+    .main-board {
+        /* width: 100%; */
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logo {
+        width: 110px;
+        /* margin-left: 20px; */
+    }
+
+    .recent-title {
+        font-weight: bold;
+        font-size: 24px;
+        margin: 30px 20px;
+        /* padding-top: 20px; */
+    }
+
+    .music-board {
+        width: 84%;
+        /* width: 100%; */
+        /* background-color: #f3f3f3; */
+        margin-top: 100px;
+        overflow-x: hidden;
+    }
+
+    .navbar {
+        margin-top: 30px;
+        /* margin-left: 20px; */
+        margin-right: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sidebar-sec {
+        display: none;
+    }
+
+    .navbar-menu {
+        margin-top: 0px;
+        /* margin-left: 20px; */
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .navbar-menu > li {
+        margin-top: 25px;
+    }
+
+    .navbar-menu a {
+        margin: 25px 0px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .main-search {
+        width: 150px;
+        height: 46px;
+        background-color: #dac9ff;
+        border-radius: 5px;
+    }
+
+    .main-search-input {
+        font-size: 20px;
+        font-weight: bold;
+        margin-left: 10px;
+        margin-top: 3px;
+        width: 95px;
+        height: 40px;
+        background-color: #dac9ff;
+        border: none;
+    }
+
+    .main-search-input::placeholder {
+        font-size: 20px;
+    }
+
+    .main-search-button {
+        margin-top: 3px;
+        width: 40px;
+        height: 40px;
+        background-color: #dac9ff;
+        border: none;
+    }
+
+    input.main-search-input:focus {
+        outline: none;
+    }
+
+    .fa-magnifying-glass {
+        font-size: 20px;
+        color: #fafafa;
+        width: 21px;
+        height: 21px;
+        background-color: #dac9ff;
+        border: none;
+    }
+
+    #navBurger {
+        display: none;
+    }
+
+    .music-board-chart {
+        height: 75%;
+
+        overflow-y: hidden;
+    }
+
+    .music-board-chart-title {
+        display: flex;
+        flex-direction: row;
+        font-weight: bold;
+        font-size: 24px;
+        justify-content: space-between;
+    }
+
+    .chart-plus {
+        font-size: 14px;
+        border: none;
+        background-color: #ffffff;
+    }
+
+    .music-chart-hr {
+        color: #000000;
+    }
+
+    /* PC flobchart */
+
+    .mobile-flobchart-all {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: 0px;
+        overflow-x: scroll;
+        margin-left: 3px;
+    }
+
+    .mobile-flobchart {
+        display: none;
+    }
+
+    .flobchart {
+        display: table;
+        width: 100%;
+        height: 250px;
+        border-bottom: 1px solid #a1a1a1;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    .flobchart tr {
+        height: 50px;
+    }
+
+    .flobchart td:first-child {
+        width: 50px;
+    }
+
+    .flobchart td:nth-child(4) {
+        width: 180px;
+        color: #a1a1a1;
+    }
+
+    .flobchart td:last-child {
+        width: 180px;
+    }
+
+    .chart-etc {
+        display: flex;
+        justify-content: center;
+    }
+
+    .fa-caret-up {
+        color: #f81808;
+        font-size: 14px;
+    }
+
+    .button-etc {
+        margin: 0px 5px;
+        border: #a1a1a1;
+        border-style: solid;
+        border-width: 0.5px;
+        width: 23px;
+        border-radius: 50%;
+    }
+
+    /* 장르버튼 */
+    .genre-board {
+        height: 200px;
+        font-weight: bold;
+        margin: 0px 20px;
+    }
+
+    .genre-title {
+        font-size: 24px;
+    }
+    .genre-button-all {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .genre-button {
+        margin: 20px 10px 0px 0px;
+        width: 130px;
+        height: 90px;
+        border: none;
+        border-radius: 5px;
+        background-color: #8d5fee;
+        font-size: 20px;
+        color: #fafafa;
+    }
+
+    .genre-button:hover {
+        background-color: #fafafa;
+        color: #8d5fee;
+    }
+}

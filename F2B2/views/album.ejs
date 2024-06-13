@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/reset.css" />
+        <link rel="stylesheet" href="../css/album.css" />
+        <link rel="stylesheet" href="../css/header.css" />
+        <link rel="stylesheet" href="../css/footer.css" />
+        <link rel="icon" href="../img/파비콘.png" type="image/png" />
+        <script src="https://kit.fontawesome.com/ff4f9619d6.js" crossorigin="anonymous"></script>
+        <title>Album</title>
+    </head>
+    <body>
+        <div class="main-board">
+            <!-- 헤더 영역 -->
+            <%-include('header.ejs')%>
+
+            <div class="album">
+                <div class="album-detail">
+                    <div class="album-title at1">앨범명</div>
+                    <div class="sub-album-detail">
+                        <img class="album-img" src="./KakaoTalk_20240305_005342544.png" alt="album.img" />
+                        <div class="album-title at2">앨범명</div>
+                        <div class="sub-album-title">
+                            <div class="sub-title">
+                                <span class="sub-artist-name">아티스트</span>
+                                <span class="artist-name">아무개</span>
+                            </div>
+                            <div class="sub-title">
+                                <span class="sub-genre">장르</span>
+                                <span class="genre">팝/메탈</span>
+                            </div>
+                            <div class="sub-title">
+                                <span class="sub-release-date">발매일</span>
+                                <span class="release-date">2023.03.04</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="music-list">
+                <!-- 수록곡 영역 -->
+                <div class="music-list-title">
+                    <div>수록곡 <span class="total-music">(2)</span></div>
+                    <div class="buttons">
+                        <input type="checkbox" class="check-all-button" /> <span class="check-all">모두 선택</span>
+                        <button class="play-button">
+                            <i class="fa-solid fa-play"></i> <span class="list-span">재생</span>
+                        </button>
+                        <button class="add-to-playlist-button">
+                            <i class="fa-solid fa-plus"></i> <span class="list-span">재생목록에 추가</span>
+                        </button>
+                        <button class="like-save-button">
+                            <i class="fa-regular fa-heart"></i><span class="list-span">좋아요 보관함에 추가</span>
+                        </button>
+                    </div>
+                </div>
+
+                <table class="playlist">
+                    <thead>
+                        <tr class="playlist-info-title">
+                            <th class="song-check">번호</th>
+                            <th class="song-title">노래 제목</th>
+                            <th class="music-btn">
+                                <span>재생</span>
+                                <span style="padding: 0 20px">추가</span>
+                                <span>가사</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="song-check">
+                                <input type="checkbox" class="song-checkbox" id="song1" />
+                                <label for="song1" class="track-number">1</label>
+                            </td>
+                            <td class="song-title">노래 제목 1</td>
+                            <td class="music-btn">
+                                <button class="play-button"><i class="fa-solid fa-play"></i></button>
+                                <button class="add-to-list-button"><i class="fa-solid fa-plus"></i></button>
+                                <button class="lyrics-popup-button">
+                                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="song-check">
+                                <input type="checkbox" class="song-checkbox" id="song2" />
+                                <label for="song2" class="track-number">2</label>
+                            </td>
+                            <td class="song-title">노래 제목 2</td>
+                            <td class="music-btn">
+                                <button class="play-button"><i class="fa-solid fa-play"></i></button>
+                                <button class="add-to-list-button"><i class="fa-solid fa-plus"></i></button>
+                                <button class="lyrics-popup-button">
+                                    <i class="fa-solid fa-square-poll-horizontal"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="album-info">
+                <!-- 앨범 소개 영역 -->
+                <div class="album-info-front">앨범 소개</div>
+                <div class="text-wrapper">
+                    <span class="text"
+                        >소개입니다. 소개입니다. 소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다. 소개입니다.
+                        소개입니다. 소개입니다.소개입니다. 소개입니다. 소개입니다. 소개입니다. 소개입니다.소개입니다.
+                        소개입니다. 소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다. 소개입니다. 소개입니다.
+                        소개입니다.소개입니다. 소개입니다. 소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다.
+                        소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다.
+                        소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다. 소개입니다. 소개입니다.
+                        소개입니다.소개입니다. 소개입니다. 소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다.
+                        소개입니다.소개입니다. 소개입니다. 소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다.
+                        소개입니다. 소개입니다. 소개입니다.소개입니다. 소개입니다. 소개입니다. 소개입니다.
+                        소개입니다.</span
+                    >
+                    <span class="more-text">더보기</span>
+                    <span class="less-text">줄이기</span>
+                </div>
+
+                <!-- 노래 가사 팝업 -->
+                <div id="lyricsPopup" class="lyrics-popup">
+                    <h2>노래 가사</h2>
+                    <p id="lyricsContent">가사 내용이 여기에 표시됩니다.</p>
+                    <button id="closeLyricsPopup" class="lyrics-popup-button">닫기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer.ejs include -->
+        <%-include('footer.ejs')%>
+
+        <script>
+            // 코드에 필요한 요소들 변수에 할당 (전체 ui를 감싸는 div, 내용 텍스트, 더보기/줄이기 텍스트)
+            const textWrapper = document.querySelector('.text-wrapper');
+            const text = document.querySelector('.text');
+            const moreText = document.querySelector('.more-text');
+            const lessText = document.querySelector('.less-text');
+
+            // 더보기 텍스트 클릭시 이벤트
+            moreText.addEventListener('click', () => {
+                moreText.style.display = 'none';
+                lessText.style.display = 'inline-block';
+                text.style.display = 'inline-block';
+            });
+
+            // 줄이기 텍스트 클릭시 이벤트
+            lessText.addEventListener('click', () => {
+                lessText.style.display = 'none';
+                moreText.style.display = 'inline-block';
+                text.style.display = '-webkit-box';
+            });
+
+            const checkAllButton = document.querySelector('.check-all-button');
+            const songCheckboxes = document.querySelectorAll('.song-checkbox');
+
+            // 1. 모두 선택 버튼 클릭 시 모든 체크박스를 체크 상태로 변경
+            checkAllButton.addEventListener('click', () => {
+                songCheckboxes.forEach((checkbox) => {
+                    checkbox.checked = true;
+                });
+            });
+
+            // 2. 밑의 체크박스가 모두 체크되면 check-all-button도 체크되도록 설정
+            songCheckboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', () => {
+                    const allChecked = Array.from(songCheckboxes).every((checkbox) => checkbox.checked);
+                    checkAllButton.checked = allChecked;
+                });
+            });
+
+            // 3. 체크박스 중 하나라도 체크되지 않으면 check-all-button은 체크되지 않도록 설정
+            songCheckboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', () => {
+                    const anyUnchecked = Array.from(songCheckboxes).some((checkbox) => !checkbox.checked);
+                    checkAllButton.checked = !anyUnchecked;
+                });
+            });
+
+            // 4. "모두 선택" 버튼의 체크가 해제되면 모든 체크박스의 체크도 해제
+            checkAllButton.addEventListener('change', () => {
+                if (!checkAllButton.checked) {
+                    songCheckboxes.forEach((checkbox) => {
+                        checkbox.checked = false;
+                    });
+                }
+            });
+
+            // 가사 데이터 배열
+            const lyricsData = [
+                '첫 번째 노래 가사입니다.',
+                '두 번째 노래 가사입니다.',
+                // 필요한 만큼 가사 데이터를 추가할 수 있습니다.
+            ];
+
+            // 각 가사 버튼에 대한 이벤트 처리
+            const lyricsPopupButtons = document.querySelectorAll('.lyrics-popup-button');
+            lyricsPopupButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    openLyricsPopup(lyricsData[index]); // 해당 인덱스의 가사 내용으로 팝업 열기
+                });
+            });
+
+            // 노래 가사 팝업 열기 함수
+            function openLyricsPopup(lyrics) {
+                const lyricsPopup = document.getElementById('lyricsPopup');
+                const lyricsContent = document.getElementById('lyricsContent');
+
+                // 가사 내용 설정
+                lyricsContent.textContent = lyrics;
+
+                // 팝업 보이기
+                lyricsPopup.style.display = 'block';
+            }
+
+            // 팝업 닫기 버튼 이벤트 처리
+            const closeLyricsPopupButton = document.getElementById('closeLyricsPopup');
+            closeLyricsPopupButton.addEventListener('click', () => {
+                const lyricsPopup = document.getElementById('lyricsPopup');
+                lyricsPopup.style.display = 'none';
+            });
+        </script>
+    </body>
+</html>

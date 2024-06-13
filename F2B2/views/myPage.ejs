@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/reset.css" />
+        <link rel="stylesheet" href="../css/myPage.css" />
+        <link rel="stylesheet" href="../css/header.css" />
+        <link rel="stylesheet" href="../css/footer.css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <link rel="icon" href="../img/파비콘.png" type="image/png" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://kit.fontawesome.com/ff4f9619d6.js" crossorigin="anonymous"></script>
+        <title>보관함</title>
+    </head>
+    <body>
+        <div class="main-board">
+            <!-- 헤더 영역 -->
+            <%-include('header.ejs')%>
+
+            <!-- 페이지 기능 -->
+            <div class="my-page">
+                <div class="my-page-title">보관함</div>
+
+                <div class="favorite-music">
+                    <div class="favorite-title">
+                        <div class="favorite-music-title">좋아요한 음악</div>
+                        <div class="check-all1">
+                            <input type="checkbox" id="favorite-checkbox-all" class="favorite-checkbox-all" />
+                            <label for="favorite-checkbox-all">모두 지우기</label>
+                        </div>
+                    </div>
+                    <div class="album-move-li album-move-title">
+                        <input type="checkbox" class="favorite-checkbox" style="visibility: hidden" />
+                        <button type="button" class="delete-button">좋아요</button>
+                        <div class="music-info">
+                            <span class="music-name">앨범</span>
+                            <div class="artist-name artist-name-title">아티스트</div>
+                        </div>
+                        <button type="button" class="play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="album-move">
+                        <ul class="album-list" id="favorite_music_list">
+                            <!-- 음악 목록이 동적으로 추가될 예정 -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="playlist">
+                    <div class="playlist-title">
+                        <div class="playlist-music-title">플레이리스트</div>
+                        <div class="check-all2">
+                            <input type="checkbox" class="playlist-checkbox-all" id="playlist-checkbox-all" />
+                            <label for="playlist-checkbox-all">모두 지우기</label>
+                        </div>
+                    </div>
+                    <div class="album-move-li album-move-title">
+                        <input type="checkbox" class="playlist-checkbox" style="visibility: hidden" />
+
+                        <div class="music-info">
+                            <span class="music-name">앨범</span>
+                            <div class="artist-name artist-name-title">아티스트</div>
+                        </div>
+                        <button type="button" class="play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <button type="button" class="delete-button">지우기</button>
+                    </div>
+
+                    <div class="album-move">
+                        <ul class="album-list" id="playlist_list">
+                            <!-- 플레이리스트 목록이 동적으로 추가될 예정 -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="result"></div>
+        </div>
+
+        <!-- footer.ejs include -->
+        <%-include('footer.ejs')%>
+    </body>
+    <script src="/js/myPage/audioControl-myPage.js"></script>
+    <script src="/js/myPage/deleteLike-myPage.js"></script>
+    <script src="/js/myPage/deleteList-myPage.js"></script>
+    <script src="/js/myPage/login-myPage.js"></script>
+    <script src="/js/myPage/musicLoad-myPage.js"></script>
+</html>
